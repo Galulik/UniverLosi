@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Main {
     private static final String URL = "jdbc:mysql://localhost:3306/uni";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "lnxbudet1delitnax";
+    private static final String PASSWORD = "root";
 
     public static void main(String[] args) {
         Connection connection;
@@ -18,11 +18,11 @@ public class Main {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             statement = connection.createStatement();
             int i = 6;
-            statement.execute("INSERT INTO lehrer VALUES("+(i+5)+", 'Pascal')");
-            statement.execute("INSERT INTO student VALUES("+i+", 'Nurdoolot')");
-            statement.execute("INSERT INTO modul VALUES("+i+", 'OOSE',"+i+","+i+")");
-            statement.execute("INSERT INTO pruefung VALUES("+i+", 'OOSE_Klausur')");
-            statement.execute("INSERT INTO lehrerModul VALUES("+i+", "+i+")");
+//            statement.execute("INSERT INTO lehrer VALUES("+(i+5)+", 'Pascal')");
+//            statement.execute("INSERT INTO student VALUES("+i+", 'Nurdoolot')");
+//            statement.execute("INSERT INTO modul VALUES("+i+", 'OOSE',"+i+","+i+")");
+//            statement.execute("INSERT INTO pruefung VALUES("+i+", 'OOSE_Klausur')");
+//            statement.execute("INSERT INTO lehrerModul VALUES("+i+", "+i+")");
 
             ResultSet resultSet = statement.executeQuery("select lehrer.name, modul.bezeichnung from lehrermodul " +
                     "inner join lehrer on lehrermodul.lehrerId = lehrer.id " +
