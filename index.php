@@ -7,40 +7,37 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Immobilien</title>
+  <title>Universität</title>
+  <style>
+   body {
+    background: #FFEBCD url(images/bg-right.png) repeat-y 100% 0;
+   }
+  </style>
 </head>
 
 <body>
   <table>
       <td>
+        <style>
+        .b1 {
+        background: lightseagreen;
+        color: black;
+        font-size: 10pt;
+        }
+        </style>
         <th>
           <form method="post">
-            <input type="submit" name="create11" value="1:1 Beziehung zeigen">
+            <input type="submit" class="b1" name="create11" value="1:1 Beziehung">
           </form>
         </th>
         <th>
           <form method="post">
-            <input type="submit" name="drop11" value="1:1 Beziehung schließen">
+            <input type="submit" class="b1" name="create1M" value="1:M Beziehung">
           </form>
         </th>
         <th>
           <form method="post">
-            <input type="submit" name="create1M" value="1:M Beziehung zeigen">
-          </form>
-        </th>
-        <th>
-          <form method="post">
-            <input type="submit" name="drop1M" value="1:M Beziehung schließen">
-          </form>
-        </th>
-        <th>
-          <form method="post">
-            <input type="submit" name="createNM" value="N:M Beziehung zeigen">
-          </form>
-        </th>
-        <th>
-          <form method="post">
-            <input type="submit" name="dropNM" value="N:M Beziehung schließen">
+            <input type="submit" class="b1" name="createNM" value="N:M Beziehung">
           </form>
         </th>
       </td>
@@ -54,8 +51,6 @@
 ?><br>Module:<br><?php
       while($modul = mysqli_fetch_assoc($module)){
     ?>
-
-
       <?php echo $modul['id'] . ". ";?>
 Bezeichnung:
       <?php echo $modul['bezeichnung'];?><br>
@@ -66,24 +61,17 @@ Bezeichnung:
                        }
 
                                 foreach ($pruef as $pu) {
-                                  if($modul['id'] == $pu['pruefungId']){
+                                  if($modul['pruefungId'] == $pu['id']){
 
                                       echo "Klausur: " . $pu['bezeichnung']; ?><br><?php
                                       break;
                                   }
-
-
                               ?>
-
                                 <?php
                               }
-
       }
-
     }
-
         ?> 
-
         <?php
           if($_POST["create1M"])
           {
@@ -153,12 +141,12 @@ Bezeichnung:
                                       $LehrMod[] = $lem;
                     }
 
-echo "Module: ";
+                echo "Module: ";
                     foreach ($LehrMod as $lm) {
                           if($lehrer['id'] == $lm['lehrerId']){
-                            foreach ($module as $mo){
+                            foreach ($modulen as $mo){
                               if($mo['id']==$lm['modulId']){
-                                echo $mo['name'] . " | ";
+                                echo $mo['bezeichnung'] . " | ";
                                 ?><?php
                               }
                             }
@@ -169,8 +157,47 @@ echo "Module: ";
                                           ?> <br> <?php
 
                   }
-                  ?>
+                
+                  ?> <br> <br>
 
+<?php
+               
+                  $lehrern = mysqli_query($connection, "SELECT * FROM `lehrer`");
+                  $module = mysqli_query($connection, "SELECT * FROM `modul`");
+                  $lehrerModul = mysqli_query($connection, "SELECT * FROM `lehrerModul`");
+              ?><br>Module:<br><?php
+                  while($mod = mysqli_fetch_assoc($module)){
+                ?>
+                  <?php echo $mod['id'] . ". ";?>
+              Modul:
+                  <?php echo $mod['bezeichnung'];?><br>
+
+                  <?php
+                  while($ler = mysqli_fetch_assoc($lehrern)){
+                                     $lehrerne[] = $ler;
+                   }
+                  while($lem = mysqli_fetch_assoc($lehrerModul)){
+                                      $LehrMod[] = $lem;
+                    }
+
+                echo "Lehrern: ";
+                    foreach ($LehrMod as $lm) {
+                          if($mod['id'] == $lm['modulId']){
+                            foreach ($lehrerne as $le){
+                              if($le['id']==$lm['lehrerId']){
+                                echo $le['name'] . " | ";
+                                ?><?php
+                              }
+                            }
+
+                          }
+
+                                          }
+                                          ?> <br> <?php
+
+                  }
+         }
+                  ?>
 
 
 

@@ -12,5 +12,4 @@ $connection = mysqli_connect(
     echo "Database is not connected";
     echo mysqli_connect_error();
     die();
-
   }
